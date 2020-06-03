@@ -43,7 +43,7 @@ function getTermos($termo = 'patologias',$base = ''){
 
 
 
-    $li .= '<a href="'.site_url().'/'.$base.'/' . $term->slug . '" title="' . sprintf(__('Ver todos os medicamentos que servem para tratar %s', 'my_localization_domain'), $term->name) . '">' . $term->name . '</a>';
+    $li .= '<a href="'.site_url().'/'.$base.'/' . $term->slug . '" title="' . sprintf(__('Ver todos os medicamentos que servem para tratar %s', 'my_localization_domain'), $term->name) . '">' . mb_substr($term->name,0,23, "utf-8") . '...</a>';
 
 
 
@@ -546,7 +546,7 @@ foreach($posts as $post){
 			<div class="post_text">
 				<div class="post_text_inner">
 					<h5 itemprop="name" class="entry_title"><a itemprop="url" href="<?php the_permalink(); ?>" target="_self" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h5>
-					<?php bridge_qode_excerpt(); ?>
+				
  
 <td>
 <ul>

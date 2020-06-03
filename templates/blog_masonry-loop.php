@@ -192,7 +192,21 @@ $bridge_qode_post_format = get_post_format();
 			<div class="post_text">
 				<div class="post_text_inner">
 					<h5 itemprop="name" class="entry_title"><a itemprop="url" href="<?php the_permalink(); ?>" target="_self" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h5>
-					<?php bridge_qode_excerpt(); ?>
+					<?/*php bridge_qode_excerpt(); */?>
+
+			<!-- AQUI É ONDE ADICIONAMOS AS INFORMAÇÕES DO MEDICAMENTO NO LOOP DOS POSTS -->
+			<?php 
+			// Verifica se o post é do tipo medicamento, caso for exibe as informações
+  			   if ($post->post_type == "medicamento") { 
+				
+ 			   } 
+				
+				else {
+					bridge_qode_excerpt();
+				}
+						 
+			?>	 
+
 					<div class="post_info">
 						<span itemprop="dateCreated" class="time entry_date updated"><?php the_time('d F, Y'); ?><meta itemprop="interactionCount" content="UserComments: <?php echo get_comments_number(bridge_qode_get_page_id()); ?>"/></span>
 						<?php if($bridge_qode_blog_hide_comments != "yes"){ ?>
@@ -201,13 +215,14 @@ $bridge_qode_post_format = get_post_format();
 					</div>
 				</div>
 			</div>
-
 			<!-- AQUI É ONDE ADICIONAMOS AS INFORMAÇÕES DO MEDICAMENTO NO LOOP DOS POSTS -->
 			<?php 
 			// Verifica se o post é do tipo medicamento, caso for exibe as informações
-  			   if ($post->post_type == "medicamento") {
-			?>	 
-				<td>
+  			   if ($post->post_type == "medicamento") { 
+                       
+			?>	
+
+                <td>
 					<ul>
 					<? echo '<strong style="color: #f63b0c;">Patologias:</strong>'; ?>
 					<? foreach(get_the_terms( $post->ID, 'patologias' ) as $term){ 
@@ -231,9 +246,13 @@ $bridge_qode_post_format = get_post_format();
 					} ?>
 					</ul>
 				</td>
-			<?php 
-				}
-			?>	
+
+
+			<?php
+ 			   } 
+			?>	 
+
+			
 		</article>
 <?php
 }
