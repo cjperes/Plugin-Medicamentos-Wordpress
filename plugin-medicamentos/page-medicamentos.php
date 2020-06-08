@@ -43,7 +43,7 @@ function getTermos($termo = 'patologias',$base = ''){
 
 
 
-    $li .= '<a href="'.site_url().'/'.$base.'/' . $term->slug . '" title="' . sprintf(__('Ver todos os medicamentos que servem para tratar %s', 'my_localization_domain'), $term->name) . '">' . mb_substr($term->name,0,23, "utf-8") . '...</a>';
+    $li .= '<a href="'.site_url().'/'.$base.'/' . $term->slug . '" title="' . sprintf(__('Ver todos os medicamentos que servem para tratar %s', 'my_localization_domain'), $term->name) . '">' . mb_substr($term->name,0,21, "utf-8") . '...</a>';
 
 
 
@@ -525,17 +525,19 @@ $("[title=<?php print strtoupper($letter);?>]").parents('li').addClass('ativo');
 <div class="blog_holder masonry" style="position: relative !important; height: 676.594px !important; opacity: 1 !important;">    
 <div class="blog_holder_grid_sizer"></div>
 <div class="blog_holder_grid_gutter"></div>
-<?
+<?php
 
 //usort($posts,'$wpdb->posts.post_title');
-uasort($posts,'post_title') ;
-//wp_list_sort( $posts, 'post_title', 'ASC', true );
+//arsort($posts);
+wp_list_sort( $posts, $post->post_title, 'ASC', true );
 
 
-
+$cont = 0;
 foreach($posts as $post){
+
+  
 ?>
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<article style="min-height: 100vh;"  id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<?php if ( has_post_thumbnail() ) { ?>
 				<div class="post_image">
 					<a itemprop="url" href="<?php the_permalink(); ?>" target="_self" title="<?php the_title_attribute(); ?>">
@@ -547,37 +549,31 @@ foreach($posts as $post){
 				<div class="post_text_inner">
 					<h5 itemprop="name" class="entry_title"><a itemprop="url" href="<?php the_permalink(); ?>" target="_self" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h5>
 				
- 
-<td>
-<ul>
-<? echo '<strong style="color: #f63b0c;">Patologias:</strong>'; ?>
-<? foreach(get_the_terms( $post->ID, 'patologias' ) as $term){ 
-echo '<li><a href="'.get_term_link($term->slug, 'patologias').'">'.$term->name.'</a></li>';
-} ?>
-</ul>
-</td>
-<td>
-<ul>
-<? echo '<strong style="color: #f63b0c;">Princípio ativo:</strong>'; ?>
-<? foreach(get_the_terms( $post->ID, 'principioativo' ) as $term){ 
-echo '<li><a href="'.get_term_link($term->slug, 'principioativo').'">'.$term->name.'</a></li>';
-} ?>
-</ul>
-</td>
-<td>
-<ul>
-<? echo '<strong style="color: #f63b0c;">Especialidades:</strong>'; ?>
-<? foreach(get_the_terms( $post->ID, 'especialidades' ) as $term){ 
-echo '<li><a href="'.get_term_link($term->slug, 'especialidades').'">'.$term->name.'</a></li>';
-} ?>
-</ul>
-</td>
+  <td>
+    <ul>
+      <? echo '<strong style="color: #f63b0c;">Patologias:</strong>'; ?>
+      <? foreach(get_the_terms( $post->ID, 'patologias' ) as $term){ 
+      echo '<li><a href="'.get_term_link($term->slug, 'patologias').'">'.$term->name.'</a></li>';
+      } ?>
+    </ul>
+  </td>
+  <td>
+    <ul>
+      <? echo '<strong style="color: #f63b0c;">Princípio ativo:</strong>'; ?>
+      <? foreach(get_the_terms( $post->ID, 'principioativo' ) as $term){ 
+      echo '<li><a href="'.get_term_link($term->slug, 'principioativo').'">'.$term->name.'</a></li>';
+      } ?>
+    </ul>
+  </td>
+  <td>
+    <ul>
+      <? echo '<strong style="color: #f63b0c;">Especialidades:</strong>'; ?>
+      <? foreach(get_the_terms( $post->ID, 'especialidades' ) as $term){ 
+      echo '<li><a href="'.get_term_link($term->slug, 'especialidades').'">'.$term->name.'</a></li>';
+      } ?>
+    </ul>
+  </td>
 					<div class="post_info">
-         
-    
-
-
-         
 						<?php if($bridge_qode_blog_hide_comments != "yes"){ ?>
 							 / <a itemprop="url" class="post_comments" href="<?php comments_link(); ?>" target="_self"><?php comments_number('0 ' . esc_html__('Comments','bridge'), '1 '.esc_html__('Comment','bridge'), '% '.esc_html__('Comments','bridge') ); ?></a>
 						<?php } ?>
@@ -585,14 +581,15 @@ echo '<li><a href="'.get_term_link($term->slug, 'especialidades').'">'.$term->na
 				</div>
 			</div>
 		</article>
+    
 
 <?
-  //$cont = $cont + 1;
-  //if ($cont == 3) {
-    //echo "<br clear=\"all\" /><br clear=\"all\" />";
-   //$cont = 0;
+  $cont = $cont + 1;
+  if ($cont == 3) {
+    echo "<br clear=\"all\" /><br clear=\"all\" /><br clear=\"all\" /><br clear=\"all\" /><br clear=\"all\" />";
+    $cont = 0;
   }
-//}
+}
 ?>
     </div>    
     </div>

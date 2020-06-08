@@ -181,7 +181,7 @@ $bridge_qode_post_format = get_post_format();
 		break;
 		default:
 ?>
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<article style="min-height: 90vh;" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<?php if ( has_post_thumbnail() ) { ?>
 				<div class="post_image">
 					<a itemprop="url" href="<?php the_permalink(); ?>" target="_self" title="<?php the_title_attribute(); ?>">
@@ -219,9 +219,7 @@ $bridge_qode_post_format = get_post_format();
 			<?php 
 			// Verifica se o post é do tipo medicamento, caso for exibe as informações
   			   if ($post->post_type == "medicamento") { 
-                       
-			?>	
-
+                       ?>	
                 <td>
 					<ul>
 					<? echo '<strong style="color: #f63b0c;">Patologias:</strong>'; ?>
@@ -254,6 +252,13 @@ $bridge_qode_post_format = get_post_format();
 
 			
 		</article>
+		<?php
+		$cont = $cont + 1;
+		if ($cont == 3) {
+			echo "<br clear=\"all\" /><br clear=\"all\" /><br clear=\"all\" /><br clear=\"all\" /><br clear=\"all\" />";
+			$cont = 0;
+		}	
+		?>	
 <?php
 }
 ?>		
